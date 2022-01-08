@@ -1,0 +1,116 @@
+body{
+    background-color: rgb(161, 115, 82);
+}
+.container{
+
+
+    background-color: rgb(127, 161, 161);
+    display: grid;
+    grid-gap: 10px;
+    grid-template-columns: max-content;
+    grid-template-areas: 
+    "logo main main "
+    "left extra extra "
+    "left menu menu "
+    "left menu menu "
+    "left menu menu "
+
+    ;
+}
+.item {
+    border-radius: 12px;
+   background-image: linear-gradient( to right,#e1e5b6 ,#cf9874 );
+}
+
+.item:first-child {
+    grid-area: logo ;
+    width: 150px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+    
+
+.item:nth-child(2){
+    grid-area: main ;
+padding-top: 20px;
+
+
+}
+.item:nth-child(2) input{
+    width: 100px;
+}
+.item input{
+    margin-left: auto;
+    margin-right: auto;
+    height: 40px;
+    border-radius: 12px;
+    background-image: linear-gradient( to right,rgb(221, 188, 255) ,rgb(115, 31, 122) );
+}
+.item:nth-child(3){
+    grid-area:  left;
+    width: 150px;
+    display:flex;
+    align-items:center;
+    /* justify-content:center; */
+    flex-direction:column;
+    
+}
+.item:nth-child(3) input{
+    
+    margin : 5px;
+    width: 100px;
+    
+}
+.item:nth-child(4){
+    grid-area: extra;
+    height: 57px ;
+    display: flex;
+justify-content: left;
+    overflow-x: auto; 
+    scroll-snap-type: x mandatory;
+    gap: 5px;
+   
+    /* padding-top: 10px; */
+   
+    /* scroll-padding: 48px; */
+    /* padding-bottom: 32px; */
+    /* justify-content: center; */
+    /* align-items: center; */
+    
+}
+.extra{ 
+    scroll-snap-align: start;
+margin: 2px;
+border-radius: 12px;
+
+}
+.item:last-child{
+    grid-area: menu;
+    display: grid;
+    
+    gap: 10px;
+    /* grid-template-columns: 1fr 1fr 1fr 1fr; */
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    padding: 10px;
+}
+.item:last-child button{
+    background-position:50% 50%;
+    background-size: cover;
+    border-radius: 12px;
+    width: 200px;
+    height: 200px;    
+    
+}
+
+
+
+h1,h2,h3 {
+    color: #ffffff; margin: 0; font-weight: bold; text-transform: uppercase;
+   
+}
+.confirm{ 
+    /* here */
+
+}
