@@ -16,7 +16,9 @@
             <?php $title = '<h1>管理</h1>';
             include 'ltm.php' ?>
 
-            <div class="item"></div>
+            <div class="item">
+                
+            </div>
 
 
             <div class="item">

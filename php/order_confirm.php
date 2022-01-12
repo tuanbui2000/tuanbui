@@ -1,109 +1,81 @@
+<?php
+// Start the session
+session_start();
+?>
 <!DOCTYPE html>
 <html>
+
 <head>
-    <title>PHP</title>
+    <title>order_confirm
+    </title>
     <meta charset="utf-8">
-    <style>
-         /* .contaner{
-            display:flex;
-            height:100%;
-        }   */
-        hr{
-            size:100%;
-        }
-        img.kusi{
-            width:75px;
-            height:100px;
-        }
-        .d2{
-            width:200px;
-            height:140px;
-            background-color:#ffdead;
-            text-align:center;
-            margin-left:auto;
-            margin-right:auto;
-            border-radius: 20px 20px 20px 20px;
-            padding:10px 0px 10px 0px;
-        }
-        .menubtn{
-            
-            width:100px;
-            background-color:#87cefa;
-            text-align:center;
-            margin-left:auto;
-            margin-right:auto;
-            border-radius: 20px 20px 20px 20px;
-            padding:20px 0px 20px 0px;
-        }
-        .orderbtn{
-            position:absolute;
-            right:10px;
-            width:100px;
-            background-color:#008000;
-            color:#ffffff;
-            text-align:center;
-            margin:0 0 0 auto;
-            border-radius: 50px 50px 50px 50px;
-            padding:20px 0px 20px 0px;
-        }
-    </style>
+    <link rel="stylesheet" href="../css/menu.css">
 </head>
+
 <body>
-    <?php
-        try{
+    <form action="" method="POST">
+        <div class="container">
+            <?php $title = '<h1>注文確認</h1>';
+            include 'ltm.php' ?>
 
-          session_start();
-          
-            
-          
-          
-          
-          ?>
-          <div class="container">
-            <img src="images/logo.png"alt="logo"class="kusi"></img>
-            <form action="menu.php"method="POST">
-              <input type="button"class="menubtn"value="メニューへ">
-              
-              <hr>
-            </div> 
-            
-            
-            <div class="d1">
-              <h1>注文確認</h1>
-              <hr>
-              
-              <?php
-            if(isset($GET['productid'])){
-              
-              
-            }
-            ?>
-          <div class="d2">
-            <h2>商品名<?php //echo $productname; ?></h2>
-            <hr>
-            <h2>価格<?php //sủyou;?></h2>
-          </div>
-          
-          
+            <div class="item">
+
+
+             extra
+            </div>
+
+
+            <div class="item">
+                
+                <?php
+
+                if (isset($_SESSION["name1"])) {
+                    echo    "<button style='background-image: url(../images/products/" . $_SESSION['name1'] . ".jpg);'>  <h1> " . $_SESSION['value1'] . "</h1></button>";
+                }
+                if (isset($_SESSION["name2"])) {
+                    echo    "<button style='background-image: url(../images/products/" . $_SESSION['name2'] . ".jpg);'>  <h1> " . $_SESSION['value2'] . "</h1></button>";
+                }
+                if (isset($_SESSION["name3"])) {
+                    echo    "<button style='background-image: url(../images/products/" . $_SESSION['name3'] . ".jpg);'>  <h1> " . $_SESSION['value3'] . "</h1></button>";
+                }
+                if (isset($_SESSION["name4"])) {
+                    echo    "<button style='background-image: url(../images/products/" . $_SESSION['name4'] . ".jpg);'>  <h1> " . $_SESSION['value4'] . "</h1></button>";
+                }
+                if (isset($_SESSION["name5"])) {
+                    echo    "<button style='background-image: url(../images/products/" . $_SESSION['name5'] . ".jpg);'>  <h1> " . $_SESSION['value5'] . "</h1></button>";
+                }
+                
+                ?>
+<input type="submit"  class="order" name="order" value="注文">
+<style>
+    .order{
+        width: 100px;
+        height: 100px;
+        border-radius: 50%;
+        position: fixed;
+    bottom: 50px;
+    right: 50px; 
+font-size: 100%;
+
+    }
+</style>
+
+</div>
+
+
+
         </div>
-        
-            <input type="submit" name="insert" value="確認"class="orderbtn">
-          </form>
-          
-          <?php
-          //データベース接続クラスの読み込み    
-          require_once "dbconnect.php";
-          //Exceptionクラスの読み込み
-          include_once 'exce.php';
+        <?php
+        if (isset($_POST['order'])) {
+            # code...
 
-
-          if(isset($_POST["insert"])){
-$sqll="insert into orders values ($id,'$name',$num) ";
-          }
-          $dbconnect = new connect();
-        }catch(PDOException $e){
-          throw new OriginalException($e);
+            //database insert here
+            
+            session_destroy();
+            header("location:menu.php");
         }
         ?>
+
 </body>
+
 </html>

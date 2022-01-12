@@ -1,5 +1,6 @@
 body{
     background-color: rgb(161, 115, 82);
+    
 }
 .container{
 
@@ -19,7 +20,7 @@ body{
 }
 .item {
     border-radius: 12px;
-   background-image: linear-gradient( to right,#e1e5b6 ,#cf9874 );
+   background-image: linear-gradient( to right,#dfc58c ,#cf9874 );
 }
 
 .item:first-child {
@@ -46,7 +47,8 @@ padding-top: 20px;
     margin-right: auto;
     height: 40px;
     border-radius: 12px;
-    background-image: linear-gradient( to right,rgb(221, 188, 255) ,rgb(115, 31, 122) );
+    background-image: linear-gradient( to right,rgb(226, 141, 102) ,rgb(145, 43, 155) );
+    color: white;
 }
 .item:nth-child(3){
     grid-area:  left;
@@ -72,12 +74,7 @@ justify-content: left;
     scroll-snap-type: x mandatory;
     gap: 5px;
    
-    /* padding-top: 10px; */
-   
-    /* scroll-padding: 48px; */
-    /* padding-bottom: 32px; */
-    /* justify-content: center; */
-    /* align-items: center; */
+    
     
 }
 .extra{ 
@@ -87,22 +84,23 @@ border-radius: 12px;
 
 }
 .item:last-child{
+  
     grid-area: menu;
-    display: grid;
-    
-    gap: 10px;
-    /* grid-template-columns: 1fr 1fr 1fr 1fr; */
-    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-    padding: 10px;
+   height: 100%;
+   /* padding: 10px; */
+   min-height: 470px;
+  
 }
 .item:last-child button{
+    margin: 10px;
     background-position:50% 50%;
     background-size: cover;
     border-radius: 12px;
     width: 200px;
     height: 200px;    
-    
+  box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;  
 }
+
 
 
 
@@ -110,7 +108,47 @@ h1,h2,h3 {
     color: #ffffff; margin: 0; font-weight: bold; text-transform: uppercase;
    
 }
+.wrapper{
+  
+   margin-right: 150px;
+    display: grid;
+    /* gap: 10px; */
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    padding: 10px;
+}
 .confirm{ 
-    /* here */
+   
+    position: fixed;
+    bottom: 50px;
+    right: 20px;
+    width: 150px;
+  
+  height: auto;
+  
+}
+.confirm input{
+    height: 50px;
+    width: 100px;
+    border-radius: 50%;
+    display: inline-block;
+    position: relative;
+    left: 50%;
+    transform: translateX(-50%);
+    background-image: linear-gradient( to right,rgb(226, 218, 102) ,rgb(43, 155, 43) );
+box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
+font-size: 100%;
+}
 
+.selected{ 
+    
+    border: solid grey;
+    border-radius: 12px;
+    height: 50px;
+}
+.selected img{
+    border-radius: 12px;
+    height: 50px;
+    width: 50px;
+    background-position:50% 50%;
+    background-size: cover;
 }
