@@ -21,14 +21,14 @@ session_start();
             <div class="item">
 
 
-             extra
+                extra
             </div>
 
 
             <div class="item">
-                
-                <?php
 
+                <?php
+             
                 if (isset($_SESSION["name1"])) {
                     echo    "<button style='background-image: url(../images/products/" . $_SESSION['name1'] . ".jpg);'>  <h1> " . $_SESSION['value1'] . "</h1></button>";
                 }
@@ -44,35 +44,78 @@ session_start();
                 if (isset($_SESSION["name5"])) {
                     echo    "<button style='background-image: url(../images/products/" . $_SESSION['name5'] . ".jpg);'>  <h1> " . $_SESSION['value5'] . "</h1></button>";
                 }
-                
+
                 ?>
-<input type="submit"  class="order" name="order" value="注文">
-<style>
-    .order{
-        width: 100px;
-        height: 100px;
-        border-radius: 50%;
-        position: fixed;
-    bottom: 50px;
-    right: 50px; 
-font-size: 100%;
+                <input type="submit" class="order" name="order" value="注文">
+                <style>
+                    .order {
+                        width: 100px;
+                        height: 100px;
+                        border-radius: 50%;
+                        position: fixed;
+                        bottom: 50px;
+                        right: 50px;
+                        font-size: 100%;
 
-    }
-</style>
+                    }
+                </style>
 
-</div>
+            </div>
 
 
 
         </div>
         <?php
         if (isset($_POST['order'])) {
-            # code...
-
             //database insert here
+
+            try {
+              // database connect
+              $db = new PDO('mysql:host=localhost;dbname=kushitori;charset=utf8', 'root', '');
+              $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+
+                // begin the transaction
+                $db->beginTransaction();
+                // our SQL statements
+            if(isset($_SESSION["name1"])){
+            $db->exec("INSERT INTO orders VALUES ( ".$_SESSION["order_id"].",".$_SESSION["name1"].",".$_SESSION["value1"].")");}
+            if(isset($_SESSION["name2"])){
+            $db->exec("INSERT INTO orders VALUES ( ".$_SESSION["order_id"].",".$_SESSION["name2"].",".$_SESSION["value2"].")");}
+            if(isset($_SESSION["name3"])){
+            $db->exec("INSERT INTO orders VALUES ( ".$_SESSION["order_id"].",".$_SESSION["name3"].",".$_SESSION["value3"].")");}
+            if(isset($_SESSION["name4"])){
+            $db->exec("INSERT INTO orders VALUES ( ".$_SESSION["order_id"].",".$_SESSION["name4"].",".$_SESSION["value4"].")");}
+            if(isset($_SESSION["name5"])){
+            $db->exec("INSERT INTO orders VALUES ( ".$_SESSION["order_id"].",".$_SESSION["name5"].",".$_SESSION["value5"].")");}
             
-            session_destroy();
-            header("location:menu.php");
+
+                // commit the transaction
+                $db->commit();
+
+              } catch(PDOException $e) {
+                // roll back the transaction if something failed
+                $db->rollback();
+                echo "Error: " . $e->getMessage();
+              }
+
+            $db = null;
+
+
+           
+  
+            unset($_SESSION["name1"]);
+            unset($_SESSION["name2"]);
+            unset($_SESSION["name3"]);
+            unset($_SESSION["name4"]);
+            unset($_SESSION["name5"]);
+            unset($_SESSION["value1"]);
+              unset($_SESSION["value2"]);
+              unset($_SESSION["value3"]);
+              unset($_SESSION["value4"]);
+              unset($_SESSION["value5"]);
+            
+           
+             header("location:menu.php");
         }
         ?>
 

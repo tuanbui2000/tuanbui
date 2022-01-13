@@ -67,6 +67,15 @@ echo "Favorite animal is " . $_SESSION["first"] . ".";
    echo $_SESSION['first'];
    echo $_SESSION['seconnd'];
    
+
+   
+?>
+<?php
+alert("Hello World");
+
+function alert($msg) {
+    echo "<script type='text/javascript'>alert('$msg');</script>";
+}
 ?>
   </body>
 </html>

@@ -30,6 +30,9 @@ session_start();
                 if (isset($_POST["confirm-button"])) {
                     header("location:order_confirm.php");
                 }
+                if (isset($_POST['payment'])) {
+                    header('location:history.php');
+            }
                 try {
                     // database connect
                     $db = new PDO('mysql:host=localhost;dbname=kushitori;charset=utf8', 'root', '');
@@ -99,17 +102,19 @@ session_start();
                                     $_SESSION["name3"] = $order;
                                     $_SESSION["value3"] = 0;
                                 } else {
-                                    if (!isset($_SESSION["name4"]) && $_SESSION["name3"] != $orderr && $order != $_SESSION["name1"] && $order != $_SESSION["name2"]) {
+                                    if (!isset($_SESSION["name4"]) && $_SESSION["name3"] != $order && $order != $_SESSION["name1"] && $order != $_SESSION["name2"]) {
                                         $_SESSION["name4"] = $order;
                                         $_SESSION["value4"] = 0;
                                     } else {
-                                        if (!isset($_SESSION["name5"]) && $_SESSION["name4"] != $orderr && $order != $_SESSION["name1"] && $order != $_SESSION["name2"] && $order != $_SESSION["name3"]) {
+                                        if (!isset($_SESSION["name5"]) && $_SESSION["name4"] != $order && $order != $_SESSION["name1"] && $order != $_SESSION["name2"] && $order != $_SESSION["name3"]) {
                                             $_SESSION["name5"] = $order;
                                             $_SESSION["value5"] = 0;
                                         } else {
-
+                                            if ($_SESSION["name5"] != $order && $_SESSION["name4"] != $order && $order != $_SESSION["name1"] && $order != $_SESSION["name2"] && $order != $_SESSION["name3"]) {
+                                                # code...
+                                                echo "<script type='text/javascript'>alert('5種類まで');</script>";
+                                            }
                                             // alert
-                                            echo "full";
                                         }
                                     }
                                 }
@@ -119,23 +124,27 @@ session_start();
 
 
 
-                        //
+                        
 
 
                         //if order have been exist
-                        if ($_SESSION["name1"] == $order) {
+                        if ($_SESSION["name1"] == $order &&$_SESSION["value1"]<5) {
                             $_SESSION["value1"] += 1;
-                        } elseif ($_SESSION["name2"] == $order) {
+                        } elseif ($_SESSION["name2"] == $order &&$_SESSION["value2"]<5) {
                             $_SESSION["value2"] += 1;
-                        } elseif ($_SESSION["name3"] == $order) {
+                        } elseif ($_SESSION["name3"] == $order&&$_SESSION["value3"]<5) {
                             $_SESSION["value3"] += 1;
-                        } elseif ($_SESSION["name4"] == $order) {
+                        } elseif ($_SESSION["name4"] == $order &&$_SESSION["value4"]<5) {
                             $_SESSION["value4"] += 1;
-                        } elseif ($_SESSION["name5"] == $order) {
+                        } elseif ($_SESSION["name5"] == $order&&$_SESSION["value5"]<5) {
                             $_SESSION["value5"] += 1;
                         } else {
-                            //alert
-                            echo "fiuc";
+                            if ( $_SESSION["name5"] == $order || $_SESSION["name4"] == $order || $order == $_SESSION["name1"] || $order == $_SESSION["name2"] || $order == $_SESSION["name3"]) {
+                                
+                                //alert
+                                    echo "<script type='text/javascript'>alert('5個まで');</script>";
+                            }
+                            
                         }
                     }
 
@@ -143,9 +152,10 @@ session_start();
 
 
 
-
-
-
+                     
+                    $result = $db->query('SELECT product_id FROM orders WHERE order_id='.$_SESSION["order_id"]);
+                    
+                    
 
                     $db = null;
                 } catch (PDOException $e) {
@@ -158,10 +168,10 @@ session_start();
 
 
 
-
-
+                
+                
                 <div class="confirm">
-
+                    
 
                     <?Php
                     //order
@@ -180,19 +190,30 @@ session_start();
                     if (isset($_SESSION["name5"])) {
                         echo " <div class='selected'><img src='../images/products/" . $_SESSION['name5'] . ".jpg' > " . $_SESSION['value5'] . "</div> ";
                     }
-
+                    
                     //confirm button
                     if (isset($_SESSION['name1'])) {
                         echo '<input type="submit" name="confirm-button" value="確認">';
                     }
 
 
+
+                    //payment button
+                    
+                    if ($result->rowCount()> 0) {
+                    echo"
+                    <input type='submit' name='payment' value='会計' style='  height: 50px;
+                    width: 100px;   border-radius: 50%; position: fixed;
+                        bottom: 50px;
+                        left: 80px;
+                        size: 100%;'>";}
+                       
                     ?>
 
 
 
 
-                </div>
+</div>
             </div>
 
         </div>
