@@ -7,6 +7,7 @@
     </title>
     <meta charset="ulf-8">
     <link rel="stylesheet" href="../css/menu.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 </head>
 
 
@@ -46,7 +47,7 @@
 
         <div class="item">
             <div class="wrapper">
-                <button style='background-image: url(../images/products/1.jpg);'>
+                <button style='filter:brightness(42%); background-image: url(../images/products/1.jpg);'>
                     <h2> chicken</h2>
                     <hr>
                     <h3> 100¥</h3>
@@ -56,11 +57,27 @@
                     <hr>
                     <h3> 100¥</h3>
                 </button>
-                <button style='background-image: url(../images/products/1.jpg);'>
+
+              <div class="blur_wrapper"> 
+                   <button class="product1" style='background-image: url(../images/products/1.jpg); '>
+                </button>
+                 <div class="blur_image">
                     <h2> chicken</h2>
                     <hr>
                     <h3> 100¥</h3>
-                </button>
+                </div></div>
+              
+
+                <div class='blur_wrapper'
+                        <button type='submit'  class='product$data[0]'  value='$data[0]' style='background-image: url(../images/products/$data[0].jpg);' id=$data[0]  name='food'> </button>
+                        <div class='blur_image'>     
+                        <h2> $data[1]</h2>
+                             <hr>
+                             <h2> $data[2]¥</h2>
+                             </div>
+                       
+                             </div>";
+                
                 <button style='background-image: url(../images/products/1.jpg);'>
                     <h2> chicken</h2>
                     <hr>
@@ -109,21 +126,53 @@
             </div>
             <img src="../images/" alt="">
             <div class="confirm">
-               <div class="selected"></div>
-               <div class="selected"></div>
-               <div class="selected"></div>
-               <div class="selected"></div>
-               <div class="selected"></div>
+              
+
+                    <div class='selected'>
+                        
+                        <img  src='../images/products/12.jpg'>
+                        <!-- <div class='plus_minus'> -->
+                            <button class='btn'><i class='fa fa-plus'></i></button>
+                            <button type="text" class='btn1'>4</button>
+                            <button class='btn'><i class='fa fa-minus'></i></button>
+                        <!-- </div> -->
+
+                    </div> 
+                    <div class='selected'><img src='../images/products/5.jpg'> </div>
+                    <div class='selected'><img src='../images/products/2.jpg'> </div>
+                    <div class='selected'><img src='../images/products/5.jpg'></div>
+                    <div class='selected'><img src='../images/products/8.jpg'> </div>
+                    <input type="submit" name="confirm-button" value="確認">
+
+
+
 
                 
-                <input type="submit" name="confirm" value="確認">
-              </div>
+
+                    <input type='submit' name='payment' value='会計' style='  height: 50px;
+                    width: 100px;   border-radius: 50%; position: fixed;
+                        bottom: 50px;
+                        left: 80px;
+                        size: 100%;'>
+                
+
+                    
+
+
+
+
+                </div>
+            </div>
+
+
+
+
         </div>
 
 
 
 
-    </div>
+
 
 
 

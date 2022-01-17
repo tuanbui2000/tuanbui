@@ -12,7 +12,8 @@ session_start();
     <link rel="stylesheet" href="../css/menu.css">
     <style>
         .history {
-            display: block;margin: 0 auto;
+            display: block;
+            margin: 0 auto;
             max-width: max-content;
             text-align: center;
         }
@@ -47,6 +48,7 @@ session_start();
 
             <!-- menu    -->
             <div class="item">
+                
                 <?php
 
                 try {
@@ -111,9 +113,16 @@ size: 100%;'>";
 
 
                 if (isset($_POST['submit'])) {
-                    session_destroy();
+
+                  
+                    
+                   session_destroy();
                     header('location:login.php');
                 }
+               
+                
+            
+
                 ?>
 
             </div>

@@ -44,8 +44,8 @@ session_start();
   <form action="" method="POST">
     <input style="background-image:url(../images/products/1.jpg);" type="submit" value="0" name="mybutton">
     <input type="submit" value="1" name="mybutton">
-    <button name="mybutton" type="submit" value="fav_HTML">HTML</button>
     <input type="submit" value="2" name="mybutton">
+    <button name="mybutton" type="submit" value="fav_HTML">HTML</button>
 </form>
 <div class="choose"></div>
 <style>
@@ -70,6 +70,7 @@ echo "Favorite animal is " . $_SESSION["first"] . ".";
 
    
 ?>
+
 <?php
 alert("Hello World");
 
@@ -77,5 +78,13 @@ function alert($msg) {
     echo "<script type='text/javascript'>alert('$msg');</script>";
 }
 ?>
+
+
+
+<style>
+   
+</style>
+
+
   </body>
 </html>

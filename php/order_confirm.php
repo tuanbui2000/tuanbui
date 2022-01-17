@@ -26,7 +26,7 @@ session_start();
 
 
             <div class="item">
-
+            <div class="confirm_display">
                 <?php
              
                 if (isset($_SESSION["name1"])) {
@@ -59,7 +59,7 @@ session_start();
 
                     }
                 </style>
-
+</div>
             </div>
 
 
@@ -113,8 +113,10 @@ session_start();
               unset($_SESSION["value3"]);
               unset($_SESSION["value4"]);
               unset($_SESSION["value5"]);
-            
-           
+              unset($_SESSION["sql"]);
+              unset($_SESSION["sql_menu"]);
+              
+              
              header("location:menu.php");
         }
         ?>

@@ -49,6 +49,8 @@ padding-top: 20px;
     border-radius: 12px;
     background-image: linear-gradient( to right,rgb(226, 141, 102) ,rgb(145, 43, 155) );
     color: white;
+    font-weight: bold;
+    font-size: 17px;
 }
 .item:nth-child(3){
     grid-area:  left;
@@ -68,19 +70,23 @@ padding-top: 20px;
 .item:nth-child(4){
     grid-area: extra;
     height: 57px ;
-    display: flex;
+    display: flex; 
 justify-content: left;
     overflow-x: auto; 
     scroll-snap-type: x mandatory;
-    gap: 5px;
+     gap: 5px;
    
     
     
 }
-.extra{ 
-    scroll-snap-align: start;
-margin: 2px;
-border-radius: 12px;
+.item:nth-child(4) button {
+    border-radius: 12px;
+    background-image: linear-gradient( to bottom,rgb(238, 145, 102) ,rgb(166, 50, 177) );
+margin: 5px;
+ font-weight: bold;;
+ font-size: 15px;
+ color: whitesmoke;
+
 
 }
 .item:last-child{
@@ -91,14 +97,17 @@ border-radius: 12px;
    min-height: 470px;
   
 }
-.item:last-child button{
+/* .item:last-child button{ */
+.wrapper button {
+
+    /* border: none; */
     margin: 10px;
     background-position:50% 50%;
     background-size: cover;
     border-radius: 12px;
     width: 200px;
     height: 200px;    
-  box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;  
+ 
 }
 
 
@@ -116,15 +125,40 @@ h1,h2,h3 {
     grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
     padding: 10px;
 }
+
+
+
+
+
+
+
+
+.confirm_display button{
+    margin: 10px;
+    background-position:50% 50%;
+    background-size: cover;
+    border-radius: 12px;
+    width: 200px;
+    height: 200px;    
+    box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;  
+     
+}
+
+
+
+
+
+
+/* từ đây trở xuống là xác nhận
+*/
 .confirm{ 
-   
     position: fixed;
     bottom: 50px;
     right: 20px;
     width: 150px;
-  
-  height: auto;
-  
+    
+    height: auto;
+    
 }
 .confirm input{
     height: 50px;
@@ -135,21 +169,67 @@ h1,h2,h3 {
     left: 50%;
     transform: translateX(-50%);
     background-image: linear-gradient( to right,rgb(226, 218, 102) ,rgb(43, 155, 43) );
-box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
-font-size: 100%;
+    box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
+    font-size: 100%;
 }
 
+
+
+
+
+
+
+/* here ís inner  */
+
 .selected{ 
+    background-color: burlywood;
     
     border: solid grey;
     border-radius: 12px;
     height: 50px;
 }
 .selected img{
+    margin-right:10px ;
     border-radius: 12px;
     height: 50px;
     width: 50px;
     background-position:50% 50%;
     background-size: cover;
-
+    
 }
+
+
+
+
+.btn {
+  border-radius: 10px;
+   position: relative;
+    top :-15px;
+
+    background-color:burlywood ; 
+    border: none; 
+    color: rgb(4, 156, 37); 
+    font-size: 30px;
+    padding: 0; 
+    cursor: pointer; 
+}
+  /* Darker background on mouse-over */
+  .btn:hover {
+    top : -17px;
+   
+  }
+  .btn1 {
+      
+      width:max-content ;
+    border-radius: 10px;
+     position: relative;
+     top :-15px;
+      background-color: burlywood; 
+      font-size: 30px;
+       font-weight: bold;;
+      border: none; 
+      color:white;
+      padding: 0; 
+     
+    }
+   
