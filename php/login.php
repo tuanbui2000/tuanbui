@@ -68,6 +68,7 @@ $sql =' SELECT order_id FROM orders';
         
 
     $_SESSION['order_id']=$old_id+1 ;
+   
         header("location:menu.php");
     }
     ?>

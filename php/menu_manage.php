@@ -3,7 +3,7 @@
 
 <head>
     <title>
-       売上
+      メニュー
     </title>
     <meta charset="ulf-8">
     <link rel="stylesheet" href="../css/menu.css">

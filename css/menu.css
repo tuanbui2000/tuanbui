@@ -69,19 +69,30 @@ padding-top: 20px;
 .item:nth-child(4){
     grid-area: extra;
     height: 57px ;
+    grid-area: extra;
+    height: 57px ;
+    display: flex;
+justify-content: left;
+    overflow-x: auto; 
+    scroll-snap-type: x mandatory;
+    gap: 5px;
   
    
     
     
 }
-.item:nth-child(4) button {
-    border-radius: 12px;
+/* .item:nth-child(4) button { */
+
+    .extra{ 
+        scroll-snap-align: start;
+    margin: 2px;   
+     border-radius: 12px;
     background-image: linear-gradient( to bottom,rgb(238, 145, 102) ,rgb(166, 50, 177) );
 margin: 5px;
  font-weight: bold;;
  font-size: 15px;
  color: whitesmoke;
- 
+
 
 
 }
