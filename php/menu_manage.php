@@ -56,8 +56,8 @@
             <div class="item">
                 <!-- menubar -->
               
-                <button class="extra_menu" style="padding-inline:30px;">串</button>
-                <button class="extra_menu" style="padding-inline:10px;">ドリンク</button>
+                <button class="extra" style="padding-inline:30px;">串</button>
+                <button class="extra" style="padding-inline:10px;">ドリンク</button>
         
             </div>
 

@@ -12,6 +12,67 @@ session_start();
     <meta charset="ulf-8">
     <link rel="stylesheet" href="../css/menu.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+
+    <style>
+         .confirm_screen {
+    height: 100%;
+    z-index: 3;
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+}
+
+.blur_content {
+    background-image: url("../images/confirm.jpg");
+
+    /* Add the blur effect */
+    filter: blur(8px);
+    -webkit-filter: blur(8px);
+    height: 100%;
+
+
+    /* Center and scale the image nicely */
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+.blur_text {
+    border-radius: 12px;
+    background-color: rgb(0, 0, 0);
+    /* Fallback color */
+    background-color: rgba(0, 0, 0, 0.4);
+    /* Black w/opacity/see-through */
+    color: white;
+    font-weight: bold;
+    border: 3px solid #f1f1f1;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 4;
+    width: 80%;
+    padding: 20px;
+    text-align: center;
+}
+
+.confirm_screen button {
+  font-size: 20px;
+    height: 55px;
+    width: 120px;
+    display: inline-block;
+
+    left: 50%;
+    transform: translateX(-10px);
+    border-radius: 12px;
+
+    background-image: linear-gradient( to right,rgb(223, 114, 114) ,rgb(155, 43, 43) );
+    color: whitesmoke;
+}
+    </style>
 </head>
 
 
@@ -25,6 +86,16 @@ session_start();
             include 'ltm.php';
             ?>
 
+            <?php
+            if (isset($_POST['error_process'])) {
+                echo $_POST['error_process'];
+                if ($_POST['error_process'] == 'yes') {
+
+                    header('location:history.php');
+                } else {
+                    header("location:menu.php");
+                }
+            } ?>
             <div class="item">
                 <?php
                 //confirm button process
@@ -32,7 +103,17 @@ session_start();
                     header("location:order_confirm.php");
                 }
                 if (isset($_POST['payment'])) {
-                    header('location:history.php');
+                    if (isset($_SESSION["name1"])) {
+                        echo " <div class='confirm_screen'>
+                       <div class='blur_content'> </div> <div class='blur_text'>
+                       <h1>
+                       注文している最中で、会計よろしいですか、注文している商品は発注されていません.</h1><br>
+                       <button name='error_process' value ='yes'>ok </button>
+                       <button name='error_process' >cancel</button></div>
+                       </div>   ";
+                    } else {
+                        header('location:history.php');
+                    }
                 }
                 try {
                     // database connect
@@ -179,13 +260,13 @@ session_start();
 
                     $db = null;
                 } catch (PDOException $e) {
+                    header("location:db_error.php");
                     print('database not connected ' . $e->getMessage());
                 } catch (Exception $e) {
                     print('予期せぬerorr ' . $e->getMessage());
                 }
                 ?>
                 </div>
-
 
 
 
@@ -248,7 +329,7 @@ session_start();
 
                         echo " <div class='selected'>
                         <img src='../images/products/" . $_SESSION['name1'] . ".jpg' > 
-                        <button name='minus' value='1' class='btn'><i class='fa fa-minus'></i></button>1
+                        <button name='minus' value='1' class='btn'><i class='fa fa-minus'></i></button>
                         <button type='text' class='btn1'>" . $_SESSION['value1'] . "</button>
                         <button name='plus' value='1' class='btn' ><i class='fa fa-plus'></i></button>
                         </div> ";
@@ -256,7 +337,7 @@ session_start();
                     if (isset($_SESSION["name2"]) && isset($_SESSION["value2"]) && $_SESSION["value2"] > 0) {
                         echo " <div class='selected'>
                         <img src='../images/products/" . $_SESSION['name2'] . ".jpg' > 
-                        <button name='minus' value='2' class='btn'><i class='fa fa-minus'></i></button>2
+                        <button name='minus' value='2' class='btn'><i class='fa fa-minus'></i></button>
                         <button type='text' class='btn1'>" . $_SESSION['value2'] . "</button>
                         <button name='plus' value='2' class='btn' ><i class='fa fa-plus'></i></button>
                         </div> ";
@@ -264,7 +345,7 @@ session_start();
                     if (isset($_SESSION["name3"]) && isset($_SESSION["value3"]) && $_SESSION["value3"] > 0) {
                         echo " <div class='selected'>
                         <img src='../images/products/" . $_SESSION['name3'] . ".jpg' > 
-                        <button name='minus' value='3' class='btn'><i class='fa fa-minus'></i></button>3
+                        <button name='minus' value='3' class='btn'><i class='fa fa-minus'></i></button>
                         <button type='text' class='btn1'>" . $_SESSION['value3'] . "</button>
                         <button name='plus' value='3' class='btn' ><i class='fa fa-plus'></i></button>
                         </div> ";
@@ -272,7 +353,7 @@ session_start();
                     if (isset($_SESSION["name4"]) && isset($_SESSION["value4"]) && $_SESSION["value4"] > 0) {
                         echo " <div class='selected'>
                         <img src='../images/products/" . $_SESSION['name4'] . ".jpg' > 
-                        <button name='minus' value='4' class='btn'><i class='fa fa-minus'></i></button>4
+                        <button name='minus' value='4' class='btn'><i class='fa fa-minus'></i></button>
                         <button type='text' class='btn1'>" . $_SESSION['value4'] . "</button>
                         <button name='plus' value='4' class='btn' ><i class='fa fa-plus'></i></button>
                         </div> ";
@@ -280,7 +361,7 @@ session_start();
                     if (isset($_SESSION["name5"]) && isset($_SESSION["value5"]) && $_SESSION["value5"] > 0) {
                         echo " <div class='selected'>
                         <img src='../images/products/" . $_SESSION['name5'] . ".jpg' > 
-                        <button name='minus' value='5' class='btn'><i class='fa fa-minus'></i></button>5
+                        <button name='minus' value='5' class='btn'><i class='fa fa-minus'></i></button>
                         <button type='text' class='btn1'>" . $_SESSION['value5'] . "</button>
                         <button name='plus' value='5' class='btn' ><i class='fa fa-plus'></i></button>
                         </div> ";
@@ -301,11 +382,11 @@ session_start();
 
                     if ($result->rowCount() > 0) {
                         echo "
-                    <input type='submit' name='payment' value='会計' style='  height: 50px;
-                    width: 100px;   border-radius: 50%; position: fixed;
+                    <input type='submit' name='payment' value='会計' style='  height: 60px;
+                    width: 120px;   border-radius: 50%; position: fixed;
                         bottom: 50px;
                         left: 80px;
-                        size: 100%;'>";
+                        font-size: 120%;color:whitesmoke;'>";
                     }
 
                     ?>

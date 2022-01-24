@@ -22,9 +22,18 @@
 
 
             <div class="item">
-
+<div class="manage_login">
+            <label >user: <input type="text" name="user_name"></label>
+            <label >password: <input type="text" name="password"></label><br>
+            <button name="submit" type="submit">ログイン</button>
             </div>
+            </div>
+<?php
+ if(isset($_POST['submit'] )){
+     header('location:user_manage.php');
+ }
 
+?>
 
 
 

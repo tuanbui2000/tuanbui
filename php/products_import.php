@@ -55,8 +55,8 @@
 
             <div class="item">
           
-             <button class="extra_menu" name="remaining" style="padding-inline:20px;"  >在庫</button>
-             <button class="extra_menu" name="products_import" style="padding-inline:20px;"  >納品</button>
+             <button class="extra" name="remaining" style="padding-inline:20px;"  >在庫</button>
+             <button class="extra" name="products_import" style="padding-inline:20px;"  >納品</button>
             </div>
 
 

@@ -49,27 +49,26 @@ session_start();
             // database connect
             $db = new PDO('mysql:host=localhost;dbname=kushitori;charset=utf8', 'root', '');
             $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-      
 
-$sql =' SELECT order_id FROM orders';
+
+            $sql = ' SELECT order_id FROM orders';
             $stmt = $db->prepare($sql);
             $stmt->execute();
 
             //display data
             while ($data = $stmt->fetch(PDO::FETCH_NUM)) {
-            $old_id =max(0,$data[0]);
+                $old_id = max(0, $data[0]);
             }
+            $_SESSION['order_id']=$old_id+1 ;
+   
+            header("location:menu.php");
             $db = null;
         } catch (PDOException $e) {
+            header("location:db_error.php");
             print('database not connected ' . $e->getMessage());
         } catch (Exception $e) {
             print('予期せぬerorr ' . $e->getMessage());
         }
-        
-
-    $_SESSION['order_id']=$old_id+1 ;
-   
-        header("location:menu.php");
     }
     ?>
 
