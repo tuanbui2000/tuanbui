@@ -32,73 +32,75 @@ session_start();
         }
 
         .submit {
-              height: 70px;
-width: 150px;   border-radius: 50%; 
-background-image: linear-gradient( to right,rgb(226, 218, 102) ,rgb(43, 155, 43) );
-box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px; position: fixed;
-    bottom: 50px;
-    right: 50px;
-font-size: 150%; color:whitesmoke;
+            height: 70px;
+            width: 150px;
+            border-radius: 50%;
+            background-image: linear-gradient(to right, rgb(226, 218, 102), rgb(43, 155, 43));
+            box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
+            position: fixed;
+            bottom: 50px;
+            right: 50px;
+            font-size: 150%;
+            color: whitesmoke;
         }
-     
-         .confirm_screen {
-    height: 100%;
-    z-index: 3;
-    position: fixed;
-    top: 0;
-    right: 0;
-    bottom: 0;
-    left: 0;
-}
 
-.blur_content {
-    background-image: url("../images/confirm.jpg");
+        .confirm_screen {
+            height: 100%;
+            z-index: 3;
+            position: fixed;
+            top: 0;
+            right: 0;
+            bottom: 0;
+            left: 0;
+        }
 
-    /* Add the blur effect */
-    filter: blur(8px);
-    -webkit-filter: blur(8px);
-    height: 100%;
+        .blur_content {
+            background-image: url("../images/confirm.jpg");
+
+            /* Add the blur effect */
+            filter: blur(8px);
+            -webkit-filter: blur(8px);
+            height: 100%;
 
 
-    /* Center and scale the image nicely */
-    background-position: center;
-    background-repeat: no-repeat;
-    background-size: cover;
-}
+            /* Center and scale the image nicely */
+            background-position: center;
+            background-repeat: no-repeat;
+            background-size: cover;
+        }
 
-.blur_text {
-    border-radius: 12px;
-    background-color: rgb(0, 0, 0);
-    /* Fallback color */
-    background-color: rgba(0, 0, 0, 0.4);
-    /* Black w/opacity/see-through */
-    color: white;
-    font-weight: bold;
-    border: 3px solid #f1f1f1;
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    z-index: 4;
-    width: 80%;
-    padding: 20px;
-    text-align: center;
-}
+        .blur_text {
+            border-radius: 12px;
+            background-color: rgb(0, 0, 0);
+            /* Fallback color */
+            background-color: rgba(0, 0, 0, 0.4);
+            /* Black w/opacity/see-through */
+            color: white;
+            font-weight: bold;
+            border: 3px solid #f1f1f1;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            z-index: 4;
+            width: 80%;
+            padding: 20px;
+            text-align: center;
+        }
 
-.confirm_screen button {
-  font-size: 20px;
-    height: 55px;
-    width: 120px;
-    display: inline-block;
+        .confirm_screen button {
+            font-size: 20px;
+            height: 55px;
+            width: 120px;
+            display: inline-block;
 
-    left: 50%;
-    transform: translateX(-10px);
-    border-radius: 12px;
+            left: 50%;
+            transform: translateX(-10px);
+            border-radius: 12px;
 
-    background-image: linear-gradient( to right,rgb(223, 114, 114) ,rgb(155, 43, 43) );
-    color: whitesmoke;
-}
- 
+            background-image: linear-gradient(to right, rgb(223, 114, 114), rgb(155, 43, 43));
+            color: whitesmoke;
+        }
     </style>
 </head>
 
@@ -113,7 +115,7 @@ font-size: 150%; color:whitesmoke;
 
                 <?php
 
-                echo "    <h1> table: xxx  No: " . $_SESSION["order_id"] . "</h1>";
+                echo "    <h1> table: " . $_SESSION["table_id"] . "  ID-No: " . $_SESSION["order_id"] . "</h1>";
 
                 ?>
             </div>
@@ -183,15 +185,31 @@ font-size: 150%; color:whitesmoke;
 
                 //payment_confirm
                 if (isset($_POST['error_process'])) {
-                    echo $_POST['error_process'];
+                    // echo $_POST['error_process'];
                     if ($_POST['error_process'] == 'yes') {
-    
+
+                        try {
+                            // database connect
+                            $db = new PDO('mysql:host=localhost;dbname=kushitori;charset=utf8', 'root', '');
+                            $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+                            // database insert, proceed process
+                            $db->exec(" insert into proceeds( order_id, product_id, order_quantities , time )  (select order_id, product_id, order_quantities,CURDATE() from orders where order_id=" . $_SESSION['order_id'] . ")");
+                            $db->exec(" delete from orders where table_id=" . $_SESSION["table_id"] . "");
+                            $db = null;
+                        } catch (PDOException $e) {
+                            header("location:db_error.php");
+                            print('database not connected ' . $e->getMessage());
+                        } catch (Exception $e) {
+                            print('予期せぬerorr ' . $e->getMessage());
+                        }
+
+                        //destroy session
                         session_destroy();
-                    header('location:login.php');
+                        header('location:login.php');
                     } else {
                         header("location:history.php");
                     }
-                } 
+                }
 
                 //submit process
                 if (isset($_POST['submit'])) {
@@ -206,8 +224,6 @@ font-size: 150%; color:whitesmoke;
                     <button name='error_process' value ='yes'>ok </button>
                     <button name='error_process' >cancel</button></div>
                     </div>   ";
-
-                   
                 }
 
 

@@ -43,6 +43,10 @@ session_start();
         <input type="submit" class='start' name="start" value="開始">
     </form>
     <?php
+    //set table
+    $_SESSION["table_id"]= 3;
+
+
     if (isset($_POST['start'])) {
         //order id process 
         try {
@@ -51,7 +55,9 @@ session_start();
             $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
 
-            $sql = ' SELECT order_id FROM orders';
+
+
+            $sql = ' SELECT order_id FROM proceeds';
             $stmt = $db->prepare($sql);
             $stmt->execute();
 
@@ -61,13 +67,24 @@ session_start();
             }
             $_SESSION['order_id']=$old_id+1 ;
    
+
+            $db->beginTransaction();
+            // our SQL statements
+            if (isset( $_SESSION['order_id'])) {
+                $db->exec("INSERT INTO proceeds(order_id, time)  VALUE (".$_SESSION['order_id'].",CURDATE())");
+            }
+            // commit the transaction
+            $db->commit();
+
+
             header("location:menu.php");
-            $db = null;
         } catch (PDOException $e) {
+            $db->rollback();
             header("location:db_error.php");
             print('database not connected ' . $e->getMessage());
         } catch (Exception $e) {
             print('予期せぬerorr ' . $e->getMessage());
+            $db = null;
         }
     }
     ?>

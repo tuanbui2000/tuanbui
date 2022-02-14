@@ -15,63 +15,90 @@ session_start();
 
 
     <style>
-         .confirm_screen {
-    height: 100%;
-    z-index: 3;
-    position: fixed;
-    top: 0;
-    right: 0;
-    bottom: 0;
-    left: 0;
-}
+        .confirm_screen {
+            height: 100%;
+            z-index: 3;
+            position: fixed;
+            top: 0;
+            right: 0;
+            bottom: 0;
+            left: 0;
+        }
 
-.blur_content {
-    background-image: url("../images/confirm.jpg");
+        .blur_content {
+            background-image: url("../images/confirm.jpg");
 
-    /* Add the blur effect */
-    filter: blur(8px);
-    -webkit-filter: blur(8px);
-    height: 100%;
+            /* Add the blur effect */
+            filter: blur(8px);
+            -webkit-filter: blur(8px);
+            height: 100%;
 
 
-    /* Center and scale the image nicely */
-    background-position: center;
-    background-repeat: no-repeat;
-    background-size: cover;
-}
+            /* Center and scale the image nicely */
+            background-position: center;
+            background-repeat: no-repeat;
+            background-size: cover;
+        }
 
-.blur_text {
-    border-radius: 12px;
-    background-color: rgb(0, 0, 0);
-    /* Fallback color */
-    background-color: rgba(0, 0, 0, 0.4);
-    /* Black w/opacity/see-through */
-    color: white;
-    font-weight: bold;
-    border: 3px solid #f1f1f1;
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    z-index: 4;
-    width: 80%;
-    padding: 20px;
-    text-align: center;
-}
+        .blur_text {
+            border-radius: 12px;
+            /* Fallback color */
+            background-color: rgb(0, 0, 0);
+            background-color: rgba(0, 0, 0, 0.4);
+            /* Black w/opacity/see-through */
+            color: white;
+            font-weight: bold;
+            border: 3px solid #f1f1f1;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            z-index: 4;
+            width: 80%;
+            padding: 20px;
+            text-align: center;
+        }
 
-.confirm_screen button {
-  font-size: 20px;
-    height: 55px;
-    width: 120px;
-    display: inline-block;
+        .confirm_screen button {
+            font-size: 20px;
+            height: 55px;
+            width: 120px;
+            display: inline-block;
 
-    left: 50%;
-    transform: translateX(-10px);
-    border-radius: 12px;
+            left: 50%;
+            transform: translateX(-10px);
+            border-radius: 12px;
 
-    background-image: linear-gradient( to right,rgb(223, 114, 114) ,rgb(155, 43, 43) );
-    color: whitesmoke;
-}
+            background-image: linear-gradient(to right, rgb(223, 114, 114), rgb(155, 43, 43));
+            color: whitesmoke;
+        }
+
+
+        .class {
+            position: absolute;
+            top: 0;
+            right: 0;
+            bottom: 0;
+            left: 0;
+            background-color: rgb(0, 0, 0);
+            background-color: rgba(0, 0, 0, 0.6);
+            text-align: center;
+
+        }
+
+        .class1 {
+
+            font-size: 50px;
+            color: red;
+            font-weight: bold;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: max-content;
+
+
+        }
     </style>
 </head>
 
@@ -81,14 +108,14 @@ session_start();
         <div class="container">
             <?php
             $title =
-                ' <input name="kushi" type="submit" value="串">
-           <input name="drink" type="submit" value="ドリンク">';
+                ' <input name="kushi" class="kushi" type="submit" value="串">
+           <input name="drink" class="drink" type="submit" value="ドリンク">';
             include 'ltm.php';
             ?>
 
             <?php
             if (isset($_POST['error_process'])) {
-                echo $_POST['error_process'];
+                // echo $_POST['error_process'];
                 if ($_POST['error_process'] == 'yes') {
 
                     header('location:history.php');
@@ -131,9 +158,11 @@ session_start();
                     }
 
                     if (isset($_POST['drink'])) {
-                        $_SESSION['sql'] = 'select * from products where category_id >10';
-                        $_SESSION['sql_menu'] = 'select category_id,category_name from categories where category_id >10;';
+                        echo "<style>.drink{border:none; }</style>";
+                        $_SESSION['sql'] = 'select * from products where category_id >=10';
+                        $_SESSION['sql_menu'] = 'select category_id,category_name from categories where category_id >=10;';
                     } elseif (isset($_POST['kushi'])) {
+                        echo "<style>.kushi{border:none; }</style>";
                         $_SESSION['sql'] = 'select * from products where category_id <10';
                         $_SESSION['sql_menu'] = 'select category_id,category_name from categories where category_id <10;';
                     }
@@ -143,6 +172,12 @@ session_start();
 
                     //extra_memu process
                     if (isset($_POST['extra_menu'])) {
+
+                        if ($_POST['extra_menu'] >= 10) {
+                            echo "<style>.drink{border:none; }</style>";
+                        } else {
+                            echo "<style>.kushi{border:none; }</style>";
+                        }
 
                         $_SESSION['sql'] = "select * from products where category_id =" . $_POST['extra_menu'];
                     }
@@ -172,20 +207,35 @@ session_start();
                     //display data
                     while ($data = $stmt->fetch(PDO::FETCH_NUM)) {
                         echo "
-                    
-                        <button   class='product$data[0]'  value='$data[0]' style='background-image: url(../images/products/$data[0].jpg);' id=$data[0]  name='food'> 
-                        <div class='blur_image'>     
-                        <h2> $data[1]</h2>
-                             <hr>
-                             <h2>$data[2]¥</h2>
-                             </div>
-                             </button>";
+                        <button   class='product$data[0]'";
+                        if ($data[4] > 4) {
+                            echo " value='$data[0]'";
+                        } else {
+                            echo "value='-1'";
+                        }
+                        echo "     style='background-image: url(../images/products/$data[0].jpg);' id=$data[0]  name='food'> ";
+
+                        if ($data[4] < 5) {
+                            echo "<style>
+                                .product$data[0]{
+                                    position :relative;
+                                   }
+                                </style>";
+                            echo "<div class='class'><div class='class1'>品切れ</div></div>";
+                        } else {
+                            echo " <div class='blur_image'> <h2 style='background-color: rgb(0, 0, 0);
+background-color: rgba(0, 0, 0, 0.4);border-radius:12px;'> $data[1]</h2>
+     <hr>
+     <h2>$data[2]¥</h2>
+     </div>";
+                        }
+                        echo "</button>";
                     }
 
 
 
                     // selected process
-                    if (isset($_POST['food'])) {
+                    if (isset($_POST['food']) && $_POST['food'] > 0) {
                         $order = $_POST['food'];
 
 
@@ -256,15 +306,13 @@ session_start();
 
 
                     $result = $db->query('SELECT product_id FROM orders WHERE order_id=' . $_SESSION["order_id"]);
-
-
-                    $db = null;
                 } catch (PDOException $e) {
                     header("location:db_error.php");
                     print('database not connected ' . $e->getMessage());
                 } catch (Exception $e) {
                     print('予期せぬerorr ' . $e->getMessage());
                 }
+                $db = null;
                 ?>
                 </div>
 
@@ -290,7 +338,9 @@ session_start();
                     if (isset($_POST['minus'])) {
                         $minus = $_POST['minus'];
                         $minus_extra = 'value' . $minus;
+
                         $_SESSION[$minus_extra] -= 1;
+
                         if ($_SESSION[$minus_extra] == 0) {
                             $minus_name = 'name' . $minus;
                             unset($_SESSION[$minus_name]);

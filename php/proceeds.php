@@ -7,6 +7,9 @@
     </title>
     <meta charset="ulf-8">
     <link rel="stylesheet" href="../css/menu.css">
+    <style>
+     
+    </style>
 </head>
 
 
@@ -25,7 +28,7 @@
              <input name="user_manage" type="submit" value="ユーザー">
              <input name="products" type="submit" value="商品">
              <input name="menu_manage" type="submit" value="メニュー">
-             <input name="proceeds" type="submit" value="売上">
+             <input name="proceeds" style="border:none; " type="submit" value="売上">
              
             <?php
              //menu-bar redirect
@@ -55,6 +58,7 @@
 
             <div class="item">
                 <!-- menubar -->
+
             </div>
 
 
@@ -64,6 +68,12 @@
             <!-- 処理するところ -->
 
             
+<h1 style="  display: inline-block;
+        position: relative;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%,-50%); font-size: 50px;" >comming soon</h1>
+
             </div>
 
 

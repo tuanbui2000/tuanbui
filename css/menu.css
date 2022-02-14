@@ -116,13 +116,14 @@ margin: 5px;
 
 .wrapper button {
 
-   
+    
     margin: 10px;
     background-position:50% 50%;
     background-size: cover;
     border-radius: 12px;
     width: 200px;
     height: 200px;    
+    overflow: hidden;
  
 }
 
@@ -149,17 +150,6 @@ h1,h2,h3 {
 
 
 
-.confirm_display button{
-    margin: 10px;
-    background-position:50% 50%;
-    background-size: cover;
-    border-radius: 12px;
-    width: 200px;
-    height: 200px;    
-    box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;  
-     
-}
-
 
 
 
@@ -171,7 +161,7 @@ h1,h2,h3 {
     bottom: 50px;
     right: 20px;
     width: 150px;
-    
+
     height: auto;
     
 }
@@ -245,10 +235,6 @@ h1,h2,h3 {
       border: none; 
       color:white;
       padding: 0; 
-     
+      
     }
-   .manage_login{
-       
-   
-    display: block;margin: 0 auto;
-   }
+  

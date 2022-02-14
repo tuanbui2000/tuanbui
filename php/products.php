@@ -1,3 +1,6 @@
+<?php
+session_start();
+?>
 <!DOCTYPE html>
 <html>
 
@@ -7,6 +10,43 @@
     </title>
     <meta charset="ulf-8">
     <link rel="stylesheet" href="../css/menu.css">
+    <style>
+                    .remaining {
+                       display: inline-flex;
+                        position: relative;
+                        color: whitesmoke;
+                        font-weight: bold;
+                        height: 30px;                        
+                        border: solid grey;
+                        border-radius: 12px;
+                        margin-left: 20px;
+                        margin-top: 3px;
+                      width: 450px ;
+                      background-image: linear-gradient(to right bottom, #748559, rgb(157, 187, 87));
+                      font-size: 20px;
+                    }
+                  
+                    .data0{
+                      
+                        background-color: rgb(176, 179, 39);
+                        border-radius: 12px;
+                        width: 45px;
+                        text-align: center;
+                    }
+                    .data1{
+                      position: absolute;
+                      top: 50%;
+                      transform: translateY(-50%);
+                      left: 60px;
+                    }
+                    .data2{
+                        position: absolute;
+                       top: 0;
+                       right: 25px;
+                    }
+                 
+                   
+                </style>
 </head>
 
 
@@ -23,7 +63,7 @@
 
             <div class="item">
                 <input name="user_manage" type="submit" value="ユーザー">
-                <input name="products" type="submit" value="商品">
+                <input name="products" style="border:none; " type="submit" value="商品">
                 <input name="menu_manage" type="submit" value="メニュー">
                 <input name="proceeds" type="submit" value="売上">
 
@@ -57,74 +97,59 @@
 
             <!-- menubar -->
             <div class="item">
-                <button name='products' style="padding-inline:20px;" class='extra'>在庫</button>
-                <button name='products_import' style="padding-inline:20px;" class='extra'>納品</button>
-
+                <button name='products' style="padding-inline:20px;border:none;" class='extra'>在庫</button>
+              <?php
+               if($_SESSION['permission']<3){
+               echo " <button name='products_import' style='padding-inline:20px;' class='extra'>納品</button>";
+               }
+               ?>
             </div>
 
 
-            <div class="item">
+            <div class="item" >
                 <!-- 処理するところ -->
                 <?php
-
+                    include 'logout.php'; 
                 try {
                     // database connect
                     $db = new PDO('mysql:host=localhost;dbname=kushitori;charset=utf8', 'root', '');
                     $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-                    $sql_syntax = 'SELECT  products.product_id, product_name, remaining_quantities  from products inner join remaining on products.product_id = remaining.product_id ';
+                    $sql_syntax = 'SELECT  product_id, product_name, remaining_quantities from products ';
                     $stmt = $db->prepare($sql_syntax);
                     $stmt->execute();
 
                     //display data
                     while ($data = $stmt->fetch(PDO::FETCH_NUM)) {
+                        if($data[2])
                         echo "<div class='remaining'>
-                      <button name='$data[0]' style='width:35px;margin-right: 5px; height: 100%;border-radius:12px;border:none; background-color:burlywood;'>$data[0]</button>  $data[1] 
-                      <div class='data2'>$data[2]個</div>
+                      <div class='data0' >$data[0]</div>  
+                      <div class='data1' >$data[1]</div>  
+                      <div class='data2' >$data[2]   個</div>  
+
+                  
                     </div>     ";
                     }
+                    
 
 
                     $db = null;
                 } catch (PDOException $e) {
-                    header("location:db_error.php");
+                    // header("location:db_error.php");
                     print('database not connected ' . $e->getMessage());
                 } catch (Exception $e) {
                     print('予期せぬerorr ' . $e->getMessage());
                 }
 
-
+                echo "<h1 style=' position:absolute; padding: 0; margin: 0; right:20px; top :25px;  font-size:35px;'>".$_SESSION['emp_name']."</h1>";
                 ?>
-                <style>
-                    .remaining {
-                        position: relative;
-                        color: whitesmoke;
-                        font-weight: bold;
-                        height: 25px;                        
-                        border: solid grey;
-                        border-radius: 12px;
-                        margin-left: 20px;
-                        margin-top: 1px;
-                       width: 350px;
-                    }
-                    .data2{
-                        position: absolute;
-                       top: 0;
-                       right: 25px;
-                    }
-                   
-                </style>
+              
             </div>
 
 
 
 
         </div>
-
-        <input type='submit' name='logout' value='ログアウト' style='  height: 50px;
-                    width: 100px;   border-radius: 50%; position: fixed;
-                        bottom: 50px;
-                        left: 30px;
-                        size: 100%;'>
+               
     </form>
 </body>
 
