@@ -226,9 +226,11 @@ session_start();
 
                             $stmt->execute();
                             unset($_SESSION['table']);
-                            header("location:user_manage.php");
+                            // header("location:user_manage.php");
                         }
                     }
+                    echo "<h1 style=' position:absolute; padding: 0; margin: 0; right:20px; top :25px;  font-size:35px;'>".$_SESSION['emp_name']."</h1>";
+
                     $sql = "select distinct table_id,order_id from orders ";
                     $stmt = $db->prepare($sql);
                     $stmt->execute();
@@ -326,10 +328,7 @@ session_start();
                         echo "<div class='tb_detail'>";
                         echo "<h1>このテーブル削除よろしいですか。</h1>
 <button style='margin-top:100px;' class='e-d' name='yes'>はい</button>
-<button class='e-d' name='no' >いいえ</button>";
-
-
-                        echo "</div";
+<button class='e-d' name='no' >いいえ</button>"; echo "</div";
                     }
 
                     if (isset($_POST['yes'])) {
@@ -383,7 +382,7 @@ session_start();
                 }
 
 
-                echo "<h1 style=' position:absolute; padding: 0; margin: 0; right:20px; top :25px;  font-size:35px;'>".$_SESSION['emp_name']."</h1>";
+               
                 ?>
             </div>
 

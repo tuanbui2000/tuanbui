@@ -227,13 +227,14 @@ session_start();
                     }
                     //create
                     if (isset($_POST["create"])) {
-                    $query = $db->prepare("SELECT * FROM products WHERE product_name ='".$_POST["new_name"]."'");
+                        $name_name=trim($_POST["new_name"]);
+                    $query = $db->prepare("SELECT * FROM products WHERE product_name ='$name_name'");
                         $query->execute();
                         if ($query->rowCount() > 0) {
-                            echo '<h1 style=" text-align:center;">The product is already existed!</h1>';
+                            echo '<h1 style=" text-align:center;">The product is already exists!</h1>';
                         } else{
-                        if (strlen($_POST["new_name"]) > 1 && strlen($_POST["new_price"]) > 1) {
-                            $sql = "INSERT into products(product_name, product_price, category_id) value('" . $_POST["new_name"] . "', " . $_POST["new_price"] . "," . $_POST["cate"] . ")";
+                        if (strlen($name_name) > 1 && strlen($_POST["new_price"]) > 1) {
+                            $sql = "INSERT into products(product_name, product_price, category_id) value('$name_name', " . $_POST["new_price"] . "," . $_POST["cate"] . ")";
                             $db->exec($sql);
                         $last_id = $db->lastInsertId();
                         
@@ -346,8 +347,21 @@ session_start();
                     }
                 } catch (PDOException $e) {
                     //alert
-                    echo "<script type='text/javascript'>alert('召し上がっているテーブルがございます。');</script>";
-                    // print('database not connected ' . $e->getMessage());
+                    $code=$e->getCode();
+        if($code == "23000"){
+            $msg='召し上がっているテーブルがございます。';
+        }
+        else if($code == "42S22"){
+            $msg='価格は英数字でご記入してください。';
+        }
+        else if($code == "2002"){
+            $msg='database not connected。';
+        }
+                    if (isset(  $msg)) {
+                        # code...
+                        echo "<script type='text/javascript'>alert('$msg');</script>";
+                    }
+                  
                 } catch (Exception $e) {
                     print('予期せぬerorr ' . $e->getMessage());
                 }

@@ -394,6 +394,7 @@ echo"      <option value='2'>マネージャー</option>
                     $db = null;
                 } catch (PDOException $e) {
                     print('database not connected ' . $e->getMessage());
+                    
                 } catch (Exception $e) {
                     print('予期せぬerorr ' . $e->getMessage());
                 }

@@ -195,6 +195,7 @@ session_start();
                             // database insert, proceed process
                             $db->exec(" insert into proceeds( order_id, product_id, order_quantities , time )  (select order_id, product_id, order_quantities,CURDATE() from orders where order_id=" . $_SESSION['order_id'] . ")");
                             $db->exec(" delete from orders where table_id=" . $_SESSION["table_id"] . "");
+                            $db->exec(" delete from proceeds where product_id is null ");
                             $db = null;
                         } catch (PDOException $e) {
                             header("location:db_error.php");
